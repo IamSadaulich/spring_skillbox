@@ -98,7 +98,7 @@
             </td>
             <tr>
                 <td>
-                    <input type="text" placeholder="author" th:name="size">
+                    <input type="text" placeholder="size" th:name="size">
                 </td>
                 <td>
                     <input type="submit" value="remove">
@@ -129,6 +129,19 @@
         </table>
     </form>
 
+<!--   enctype="multipart/form-data" указывает, что эта форма обрабатывает составные мультипарт запроса -->
+    <form method="post" th:action="@{/books/uploadFile}" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td>
+                    <input type="file" name="file"/>
+                </td>
+                <td>
+                    <input type="submit" value="Upload">
+                </td>
+            </tr>
+        </table>
+    </form>
 
     <table id="books">
         <tr>

@@ -10,6 +10,6 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 public class ErrorController {
     @GetMapping("/404")
     public String notFoundError(Exception ex) {
-        return "errors/404";
+        return "errors/error_page";
     }
 }

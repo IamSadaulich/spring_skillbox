@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 
 @Controller
 @RequestMapping(value = "/books")
@@ -66,7 +68,7 @@ public class BookShelfController {
             model.addAttribute("bookSizeToRemove", new BookSizeToRemove());
             return "book_shelf";
         } else {
-            bookService.removeBookById(Integer.parseInt(bookIdToRemove.getId()));
+            bookService.removeBookById(bookIdToRemove.getId());
             return "redirect:/books/shelf";
         }
     }
@@ -115,5 +117,35 @@ public class BookShelfController {
             bookService.removeAllBookByAuthor(bookAuthor.getAuthor());
             return "redirect:/books/shelf";
         }
+    }
+
+    @PostMapping("/uploadFile")
+    public String uploadFile(@RequestParam("file")MultipartFile file) throws Exception {
+        logger.info("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+        String name = file.getOriginalFilename();
+        byte[] bytes = file.getBytes();
+
+        // create dir
+        String rootPath = System.getProperty("catalina.home");  // свойство отражающее путь до папки содержащей файлы нащего сервера
+        File dir = new File(rootPath + File.separator + "external_uploads");
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        // create File
+        File serverFile = new File(dir.getAbsolutePath() + File.separator + name);
+        BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+        stream.write(bytes);
+        stream.close();
+
+        logger.info("new file saved at: " + serverFile.getAbsolutePath());
+
+        return "redirect:/books/shelf";
+    }
+
+    @ExceptionHandler(Exception.class)
+    public String handleError(Model model, Exception e) {
+        model.addAttribute("errorMessage", e.getMessage());
+        return "errors/error_page";
     }
 }
