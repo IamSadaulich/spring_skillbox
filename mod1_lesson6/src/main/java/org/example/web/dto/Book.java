@@ -1,13 +1,14 @@
 package org.example.web.dto;
 
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 public class Book {
     private Integer id;
-    @NotEmpty
+    @NotBlank
     private String author;
-    @NotEmpty
+    @NotBlank
     private String title;
     @Digits(integer = 4, fraction = 0)
     private Integer size;

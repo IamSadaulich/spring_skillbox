@@ -1,5 +1,6 @@
 package org.example;
 
+import org.apache.log4j.Logger;
 import org.example.app.config.AppContextConfig;
 import org.example.web.config.WebContextConfig;
 import org.h2.server.web.WebServlet;
@@ -13,9 +14,11 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 public class WebAppInitializer implements WebApplicationInitializer {
+    Logger logger = Logger.getLogger(WebAppInitializer.class);
 
     @Override
     public void onStartup(javax.servlet.ServletContext servletContext) throws ServletException {
+        logger.info("Startup AAAAAAAAAAAAAAAAA");
 //        XmlWebApplicationContext  appContext = new XmlWebApplicationContext();
 //        appContext.setConfigLocation("classpath:app-config.xml");
         AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
@@ -36,5 +39,6 @@ public class WebAppInitializer implements WebApplicationInitializer {
         ServletRegistration.Dynamic servlet = servletContext.addServlet("h2-console", new WebServlet());
         servlet.setLoadOnStartup(2);
         servlet.addMapping("/console/*");
+        logger.info("End Config AAAAAAAAAAAAAAAAA");
     }
 }

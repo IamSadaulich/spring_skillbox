@@ -1,9 +1,10 @@
 package org.example.web.dto;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
 public class BookAuthorToRemove {
-    @NotEmpty
+    @NotBlank
     private String author;
 
     public String getAuthor() {

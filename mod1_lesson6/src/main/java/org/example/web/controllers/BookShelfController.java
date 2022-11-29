@@ -2,6 +2,7 @@ package org.example.web.controllers;
 
 
 import org.apache.log4j.Logger;
+import org.example.app.exceptions.FileNotSelectedException;
 import org.example.app.services.BookService;
 import org.example.web.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,6 @@ public class BookShelfController {
     @PostMapping("/save")
     public String saveBook(@Valid Book book, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("book", new Book());
             model.addAttribute("bookTitleToRemove", new BookTitleToRemove());
             model.addAttribute("bookAuthorToRemove", new BookAuthorToRemove());
             model.addAttribute("bookIdToRemove", new BookIdToRemove());
@@ -121,7 +121,10 @@ public class BookShelfController {
 
     @PostMapping("/uploadFile")
     public String uploadFile(@RequestParam("file")MultipartFile file) throws Exception {
-        logger.info("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+        logger.info("upload file: ");
+        if (file.isEmpty()) {
+            throw new FileNotSelectedException("File not selected for download.");
+        }
         String name = file.getOriginalFilename();
         byte[] bytes = file.getBytes();
 
@@ -143,7 +146,7 @@ public class BookShelfController {
         return "redirect:/books/shelf";
     }
 
-    @ExceptionHandler(Exception.class)
+    @ExceptionHandler(FileNotSelectedException.class)
     public String handleError(Model model, Exception e) {
         model.addAttribute("errorMessage", e.getMessage());
         return "errors/error_page";

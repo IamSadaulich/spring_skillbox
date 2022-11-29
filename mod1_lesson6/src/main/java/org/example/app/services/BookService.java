@@ -45,6 +45,8 @@ public class BookService {
     }
 
     public void saveBook(Book book) {
+        book.setAuthor(book.getAuthor().trim());
+        book.setTitle(book.getTitle().trim());
         bookRepo.store(book);
     }
 
