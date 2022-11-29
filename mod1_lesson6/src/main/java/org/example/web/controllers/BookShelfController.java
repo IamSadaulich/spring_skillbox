@@ -120,8 +120,7 @@ public class BookShelfController {
     }
 
     @PostMapping("/uploadFile")
-    public String uploadFile(@RequestParam("file")MultipartFile file) throws Exception {
-        logger.info("upload file: ");
+    public String uploadFile(@RequestParam("file") MultipartFile file) throws Exception {
         if (file.isEmpty()) {
             throw new FileNotSelectedException("File not selected for download.");
         }

@@ -18,15 +18,10 @@ public class WebAppInitializer implements WebApplicationInitializer {
 
     @Override
     public void onStartup(javax.servlet.ServletContext servletContext) throws ServletException {
-        logger.info("Startup AAAAAAAAAAAAAAAAA");
-//        XmlWebApplicationContext  appContext = new XmlWebApplicationContext();
-//        appContext.setConfigLocation("classpath:app-config.xml");
         AnnotationConfigWebApplicationContext appContext = new AnnotationConfigWebApplicationContext();
         appContext.register(AppContextConfig.class);
         servletContext.addListener(new ContextLoaderListener(appContext));
 
-//        XmlWebApplicationContext webContext = new XmlWebApplicationContext();
-//        webContext.setConfigLocation("classpath:web-config.xml");
         AnnotationConfigWebApplicationContext webContext = new AnnotationConfigWebApplicationContext();
         webContext.register(WebContextConfig.class);
 
@@ -39,6 +34,5 @@ public class WebAppInitializer implements WebApplicationInitializer {
         ServletRegistration.Dynamic servlet = servletContext.addServlet("h2-console", new WebServlet());
         servlet.setLoadOnStartup(2);
         servlet.addMapping("/console/*");
-        logger.info("End Config AAAAAAAAAAAAAAAAA");
     }
 }
