@@ -1,7 +1,7 @@
 package com.example.MyBookShopApp.controllers;
 
 
-import com.example.MyBookShopApp.data.Book;
+import com.example.MyBookShopApp.data.BookEntity;
 import com.example.MyBookShopApp.data.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +22,7 @@ public class RecentController {
     }
 
     @ModelAttribute("booksList")
-    public List<Book> bookList() {
+    public List<BookEntity> bookList() {
         return bookService.getBooksData();
     }
 
