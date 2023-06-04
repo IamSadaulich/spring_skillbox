@@ -14,10 +14,10 @@
                         <div class="Card-content">
                             <strong class="Card-title"><a href="/books/slug.html" th:text="${book.title}">Техника</a>
                             </strong>
-                            <div class="Card-description" th:text="${book.authorEntity}">Кондратенко Валерий Петрович
+                            <div class="Card-description" th:text="${book.authors}">Кондратенко Валерий Петрович
                             </div>
-                            <div class="Card-cost"><span class="Card-priceOld" th:if="${book.priceOld != null}" th:text="${book.priceOld}">₽300.00</span>
-                                <span class="Card-price" th:text="${book.price}">₽190.00</span>
+                            <div class="Card-cost"><span class="Card-priceOld" th:if="${book.oldPrice != book.newPrice}" th:text="${book.oldPrice} + '₽'">₽300.00</span>
+                                <span class="Card-price" th:text="${book.newPrice} + '₽'">₽190.00</span>
                             </div>
                         </div>
                     </div>

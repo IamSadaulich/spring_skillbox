@@ -1,7 +1,10 @@
 package com.example.MyBookShopApp.data;
 
+import com.example.MyBookShopApp.data.struct.book.links.Book2AuthorEntity;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -33,6 +36,17 @@ public class BookEntity {
 
     @Column(columnDefinition = "SMALLINT NOT NULL DEFAULT 0")
     private short discount;
+
+    @OneToMany(mappedBy = "book")
+    Set<Book2AuthorEntity> book2AuthorEntities;
+
+    public Set<Book2AuthorEntity> getBook2AuthorEntities() {
+        return book2AuthorEntities;
+    }
+
+    public void setBook2AuthorEntities(Set<Book2AuthorEntity> book2AuthorEntities) {
+        this.book2AuthorEntities = book2AuthorEntities;
+    }
 
     public Integer getId() {
         return id;

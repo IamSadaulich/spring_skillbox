@@ -15,11 +15,11 @@ public class Book2AuthorEntity {
 
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
-    private BookEntity bookId;
+    private BookEntity book;
 
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
-    private AuthorEntity authorEntity;
+    private AuthorEntity author;
 
     @Column(columnDefinition = "INT NOT NULL  DEFAULT 0")
     private int sortIndex;
@@ -32,28 +32,20 @@ public class Book2AuthorEntity {
         this.id = id;
     }
 
-    public BookEntity getBookId() {
-        return bookId;
+    public BookEntity getBook() {
+        return book;
     }
 
-    public void setBookId(BookEntity bookId) {
-        this.bookId = bookId;
-    }
-
-    public AuthorEntity getAuthorEntity() {
-        return authorEntity;
-    }
-
-    public void setAuthorEntity(AuthorEntity authorEntity) {
-        this.authorEntity = authorEntity;
+    public void setBook(BookEntity bookId) {
+        this.book = bookId;
     }
 
     public AuthorEntity getAuthor() {
-        return authorEntity;
+        return author;
     }
 
-    public void setAuthor(AuthorEntity authorEntity) {
-        this.authorEntity = authorEntity;
+    public void setAuthor(AuthorEntity author) {
+        this.author = author;
     }
 
     public int getSortIndex() {
