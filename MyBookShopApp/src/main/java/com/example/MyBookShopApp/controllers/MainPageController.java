@@ -1,9 +1,9 @@
 package com.example.MyBookShopApp.controllers;
 
-import com.example.MyBookShopApp.DTO.BookDto;
+import com.example.MyBookShopApp.data.struct.DTO.BookDto;
 import com.example.MyBookShopApp.data.AuthorEntity;
 import com.example.MyBookShopApp.data.BookEntity;
-import com.example.MyBookShopApp.data.BookService;
+import com.example.MyBookShopApp.services.BookService;
 import com.example.MyBookShopApp.data.struct.book.links.Book2AuthorEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

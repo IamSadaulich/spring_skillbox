@@ -1,4 +1,4 @@
-package com.example.MyBookShopApp.DTO;
+package com.example.MyBookShopApp.data.struct.DTO;
 
 public class BookDto {
     private String title;
