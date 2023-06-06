@@ -26,7 +26,7 @@
                 th:replace="~{fragments/breadcrumb_fragment :: breadcrumps(category='Борис Васильевич Бедный')}"></ul>
             <div th:replace="~{fragments/author_article_fragment :: article(authorEntity='Борис Васильевич Бедный')}"></div>
             <div class="Section"
-                 th:replace="~{fragments/book_slider_fragment :: bookSlider(title='Книги автора')}"></div>
+                 th:replace="~{fragments/book_slider_fragment :: bookSlider(title='Книги автора', collectionName='recommendedBooks')}"></div>
             <footer class="Section-footer"><a class="Author-books" th:href="@{/books/authorEntity}" href="/books/authorEntity.html">Все
                 книги автора<span
                         class="Author-amount">(55)</span></a>

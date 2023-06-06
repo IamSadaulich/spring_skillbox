@@ -47,6 +47,9 @@ public class BookEntity {
     }
 
     public Collection<AuthorEntity> getAuthors() {
+        if (authors == null) {
+            setAuthors();
+        }
         return authors;
     }
 
@@ -59,6 +62,9 @@ public class BookEntity {
     }
 
     public String getAuthorsNames() {
+        if (authors == null) {
+            setAuthors();
+        }
         String authorsNames = "";
         for (AuthorEntity a : authors) {
             if (authorsNames.isEmpty()) {

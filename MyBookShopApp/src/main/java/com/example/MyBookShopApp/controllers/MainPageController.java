@@ -23,45 +23,25 @@ public class MainPageController {
     }
 
     @ModelAttribute("recommendedBooks")
-    public List<BookDto> recommendedBooks(){
-        List<BookDto> bookDtoList = new ArrayList<>();
+    public List<BookEntity> recommendedBooks(){
         List<BookEntity> bookEntities = bookService.getBooksData().subList(0, 30);
-        for (BookEntity bookEntity : bookEntities) {
-            BookDto bookDto = new BookDto();
-            bookDto.setTitle(bookEntity.getTitle());
-            bookDto.setOldPrice(bookEntity.getPrice());
-            if (bookEntity.getDiscount() == 0) {
-                bookDto.setNewPrice(bookDto.getOldPrice());
-            } else {
-                bookDto.setNewPrice(bookEntity.getDiscount() * bookDto.getOldPrice() / 100);
-            }
-            bookDto.setAuthors(getAuthorNames(bookEntity));
-            bookDtoList.add(bookDto);
-        }
-        return bookDtoList;
+        return bookEntities;
+    }
+
+    @ModelAttribute("recentBooks")
+    public List<BookEntity> recentBooks(){
+        List<BookEntity> bookEntities = bookService.getBooksData().subList(30, 60);
+        return bookEntities;
+    }
+
+    @ModelAttribute("popularBooks")
+    public List<BookEntity> popularBooks(){
+        List<BookEntity> bookEntities = bookService.getBooksData().subList(60, 90);
+        return bookEntities;
     }
 
     @GetMapping("/")
     public String mainPage(){
         return "index";
-    }
-
-    public String getAuthorNames(BookEntity bookEntity) {
-        Set<Book2AuthorEntity> book2AuthorEntities = bookEntity.getBook2AuthorEntities();
-        Map<Integer, String> authorsNamesMap = new TreeMap<>();
-        String authorsNames = "";
-        Iterator<Book2AuthorEntity> iterator = book2AuthorEntities.iterator();
-        while (iterator.hasNext()) {
-            Book2AuthorEntity book2AuthorEntity = iterator.next();
-            AuthorEntity author = book2AuthorEntity.getAuthor();
-            authorsNamesMap.put(book2AuthorEntity.getSortIndex(), book2AuthorEntity.getAuthor().getName());
-        }
-        for (Map.Entry<Integer, String> entry : authorsNamesMap.entrySet()) {
-            if (!authorsNames.isEmpty()) {
-                authorsNames = authorsNames.concat(", ");
-            }
-            authorsNames = authorsNames.concat(entry.getValue());
-        }
-        return authorsNames;
     }
 }
