@@ -1,6 +1,7 @@
 package com.example.MyBookShopApp.data;
 
 import com.example.MyBookShopApp.data.struct.book.links.Book2AuthorEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.*;
@@ -36,37 +37,39 @@ public class BookEntity {
     @Column(columnDefinition = "SMALLINT NOT NULL DEFAULT 0")
     private short discount;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "book")
     Set<Book2AuthorEntity> book2AuthorEntities;
 
     @Transient
-    private Collection<AuthorEntity> authors;
+    private Collection<AuthorEntity> authorEntities;
 
     public Set<Book2AuthorEntity> getBook2AuthorEntities() {
         return book2AuthorEntities;
     }
 
-    public Collection<AuthorEntity> getAuthors() {
-        if (authors == null) {
-            setAuthors();
+    @JsonIgnore
+    public Collection<AuthorEntity> getAuthorEntities() {
+        if (authorEntities == null) {
+            setAuthorEntities();
         }
-        return authors;
+        return authorEntities;
     }
 
-    public void setAuthors() {
+    public void setAuthorEntities() {
         Map<Integer, AuthorEntity> authorsMap = new TreeMap<>();
         book2AuthorEntities.forEach(b2a -> {
             authorsMap.put(b2a.getSortIndex(), b2a.getAuthor());
         });
-        authors = authorsMap.values();
+        authorEntities = authorsMap.values();
     }
 
-    public String getAuthorsNames() {
-        if (authors == null) {
-            setAuthors();
+    public String getAuthors() {
+        if (authorEntities == null) {
+            setAuthorEntities();
         }
         String authorsNames = "";
-        for (AuthorEntity a : authors) {
+        for (AuthorEntity a : authorEntities) {
             if (authorsNames.isEmpty()) {
                 authorsNames = authorsNames.concat(a.getName());
             } else {

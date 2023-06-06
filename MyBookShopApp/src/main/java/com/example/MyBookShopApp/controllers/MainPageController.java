@@ -1,10 +1,7 @@
 package com.example.MyBookShopApp.controllers;
 
-import com.example.MyBookShopApp.data.struct.DTO.BookDto;
-import com.example.MyBookShopApp.data.AuthorEntity;
 import com.example.MyBookShopApp.data.BookEntity;
 import com.example.MyBookShopApp.services.BookService;
-import com.example.MyBookShopApp.data.struct.book.links.Book2AuthorEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,19 +21,18 @@ public class MainPageController {
 
     @ModelAttribute("recommendedBooks")
     public List<BookEntity> recommendedBooks(){
-        List<BookEntity> bookEntities = bookService.getBooksData().subList(0, 30);
-        return bookEntities;
+        return bookService.getPageOfRecommendedBooks(0, 6).getContent();
     }
 
     @ModelAttribute("recentBooks")
     public List<BookEntity> recentBooks(){
-        List<BookEntity> bookEntities = bookService.getBooksData().subList(30, 60);
+        List<BookEntity> bookEntities = bookService.getBooksData().subList(6, 12);
         return bookEntities;
     }
 
     @ModelAttribute("popularBooks")
     public List<BookEntity> popularBooks(){
-        List<BookEntity> bookEntities = bookService.getBooksData().subList(60, 90);
+        List<BookEntity> bookEntities = bookService.getBooksData().subList(12, 18);
         return bookEntities;
     }
 
