@@ -26,11 +26,11 @@ public class ApiController {
 
     @GetMapping("/books/recent")
     public BooksDto recent(@RequestParam int offset, @RequestParam int limit) {
-        return new BooksDto(bookService.getBooksData().subList(0, 10));
+        return new BooksDto(bookService.getPageOfRecommendedBooks(offset, limit).getContent());
     }
 
     @GetMapping("/books/popular")
-    public BooksDto popular(@RequestParam int offset, @RequestParam int limit, @RequestParam String from, @RequestParam String to) {
-        return new BooksDto(bookService.getBooksData().subList(0, 10));
+    public BooksDto popular(@RequestParam int offset, @RequestParam int limit) {
+        return new BooksDto(bookService.getPageOfRecommendedBooks(offset, limit).getContent());
     }
 }

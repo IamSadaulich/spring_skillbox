@@ -118,9 +118,7 @@ public class BookDto {
 //        bookDto.setStatus(bookEntity.getStatus());
         bookDto.setPrice(bookEntity.getPrice());
         if (bookEntity.getDiscount() > 0) {
-            System.out.println();
             bookDto.setDiscountPrice(bookDto.price / 100 * (100 - bookEntity.getDiscount()));
-            System.out.println(bookDto.getDiscountPrice());
         }
         return bookDto;
     }
