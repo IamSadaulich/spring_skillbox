@@ -1,0 +1,2 @@
+1. Mass of request "/books/recent?from=07.05.2023&to=07.06.2023&offset=0&limit=20" happen when change the developer tools on page "news"
+2. Double reques when i click on SHOW MORE button

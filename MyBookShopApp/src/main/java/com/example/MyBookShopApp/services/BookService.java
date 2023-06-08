@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,6 +23,18 @@ public class BookService {
 
     public List<BookEntity> getBooksData() {
         return bookRepository.findAll();
+    }
+
+    public Page<BookEntity> getPageOfRecentBooks(int offset, int limit, Date from, Date to) {
+        return bookRepository.findAllByPubDateAfterAndPubDateBeforeOrderByPubDateDesc(from, to, PageRequest.of(offset, limit));
+    }
+
+    public Page<BookEntity> getPageOfRecentBooksFrom(int offset, int limit, Date from) {
+        return bookRepository.findAllByPubDateAfterOrderByPubDateDesc(from, PageRequest.of(offset, limit));
+    }
+
+    public Page<BookEntity> getPageOfRecentBooksTo(int offset, int limit, Date to) {
+        return bookRepository.findAllByPubDateBeforeOrderByPubDateDesc(to, PageRequest.of(offset, limit));
     }
 
     public Page<BookEntity> getPageOfRecommendedBooks(int offset, int limit) {

@@ -23,7 +23,7 @@ public class RecentController {
 
     @ModelAttribute("booksList")
     public List<BookEntity> bookList() {
-        return bookService.getBooksData();
+        return bookService.getPageOfRecommendedBooks(0, 20).getContent();
     }
 
     @GetMapping
